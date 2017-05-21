@@ -108,8 +108,7 @@ public class Reestr extends Application {
         fileChooser.getExtensionFilters().add(extFilter);
         File file = fileChooser.showOpenDialog(this.primaryStage);
         if (file != null) {
-            try {
-                BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "windows-1251"));
+            try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "windows-1251"));) {
                 String strLine;
                 while ((strLine = br.readLine()) != null) {
                     ind++;
@@ -190,7 +189,7 @@ public class Reestr extends Application {
 
                     }
                 }
-
+                
             } catch (IOException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(this.primaryStage);

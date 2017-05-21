@@ -55,7 +55,7 @@ public class FXMLDocumentController {
     @FXML
     private TextField tfCodeWord2;
     @FXML
-    private ChoiceBox cbSex;
+    private ChoiceBox<String> cbSex;
     @FXML
     private DatePicker dpdateBirth;
     @FXML
