@@ -5,9 +5,14 @@
  */
 package reestr.view;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Iterator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
@@ -70,6 +75,8 @@ public class FXMLDocumentController {
     private ObservableList<String> polData = FXCollections.observableArrayList();
 
     private Reestr mainApp;
+
+    int CountRowInfoTable;
 
     public FXMLDocumentController() {
     }
@@ -156,16 +163,117 @@ public class FXMLDocumentController {
 
     @FXML
     private void loadInfoFromFile() {
-        
+
         this.mainApp.loadInfoFromFile();
         infoTable.setItems(this.mainApp.getInfoData());
         infoTable.getSelectionModel().selectFirst();
 
     }
     
+    private boolean checkFields(info info){
+        boolean result = false; 
+        
+        /**
+         *  Фамилия
+            Имя
+            Серия паспорта
+            Номер паспорта
+            Дата выдачи паспорта
+            Орган выдавший паспорт
+         */
+        
+        if (!"".equals(info.getLastName()) 
+                && !"".equals(info.getFirstName())
+                && !"".equals(info.getSer())
+                && !"".equals(info.getNumber())
+                && !"".equals(info.getpDateIssue())
+                && !"".equals(info.getpWhom())) {
+            result = true;
+        }
+        
+        return result;
+    }
+
     @FXML
-    private void toCft(){
-        this.mainApp.toCft();
+    private void toCft() {
+
+    }
+
+    @FXML
+    private void checkPassport() {
+        String res;
+
+        String dir = this.mainApp.getParentDir() + File.separator + "checkFirstLevel";
+        if (!new File(dir).exists()) new File(dir).mkdir();
+
+        File file_r1 = new File(dir + File.separator + "good_reestr.txt");
+        File file_r2 = new File(dir + File.separator + "bad_reestr.txt");
+        File file_pr = new File(dir + File.separator + "protokol.txt");
+
+        try (FileWriter goodReestr = new FileWriter(file_r1, false);
+                FileWriter badReestr = new FileWriter(file_r2, false);
+                FileWriter protokol = new FileWriter(file_pr, false);) {
+
+            protokol.write("===================================================================================" + System.lineSeparator());
+            protokol.write("НАЧАЛО ПРОВЕРКИ ПЕРВОГО УРОВНЯ                                                     " + System.lineSeparator());
+            protokol.write("===================================================================================" + System.lineSeparator());
+
+            goodReestr.write("Табельный номер;Фамилия;Имя;Отчество;Пол клиента;Фамилия на карте;Имя на карте;Дата рождения;Место рождения;Код страны гражданства;Место регистрации. Код страны адреса;Место регистрации. Почтовый индекс;Место регистрации. Код субъекта РФ;Место регистрации. Район субъекта РФ;Место регистрации. Город;Место регистрации. Населенный пункт;Место регистрации. Улица;Место регистрации. Дом;Место регистрации. Корпус;Место регистрации. Квартира;Код страны адреса;Почтовый индекс;Код субъекта РФ адреса;Район субъекта РФ адреса;Город;Населенный пункт;Улица;Дом;Корпус;Квартира;Телефон;Мобильный телефон;Код типа документа;Серия документа;Номер удостоверения;Дата выдачи документа;Кем выдан документ;Резидент;Документ, подтверждающий право пребывания на территории РФ;Данные миграционной карты;Кодовое слово;Дата приема на работу;СНИЛС;Средний оклад сотрудника за последние 3 месяца;Дополнительная услуга;Подключить дополнительные услуги; Принадлежность ПДЛ" + System.lineSeparator());
+            badReestr.write("Табельный номер;Фамилия;Имя;Отчество;Пол клиента;Фамилия на карте;Имя на карте;Дата рождения;Место рождения;Код страны гражданства;Место регистрации. Код страны адреса;Место регистрации. Почтовый индекс;Место регистрации. Код субъекта РФ;Место регистрации. Район субъекта РФ;Место регистрации. Город;Место регистрации. Населенный пункт;Место регистрации. Улица;Место регистрации. Дом;Место регистрации. Корпус;Место регистрации. Квартира;Код страны адреса;Почтовый индекс;Код субъекта РФ адреса;Район субъекта РФ адреса;Город;Населенный пункт;Улица;Дом;Корпус;Квартира;Телефон;Мобильный телефон;Код типа документа;Серия документа;Номер удостоверения;Дата выдачи документа;Кем выдан документ;Резидент;Документ, подтверждающий право пребывания на территории РФ;Данные миграционной карты;Кодовое слово;Дата приема на работу;СНИЛС;Средний оклад сотрудника за последние 3 месяца;Дополнительная услуга;Подключить дополнительные услуги; Принадлежность ПДЛ" + System.lineSeparator());
+
+            infoTable.getSelectionModel().selectFirst(); // встаем на первую
+            Iterator<info> iterator = infoTable.getItems().iterator();
+            while (iterator.hasNext()) {
+
+                info next = iterator.next();
+                infoTable.getSelectionModel().select(next); // визуально выделяем 
+                
+                // 1. проверить полей
+                boolean flagCheck;
+                if (checkFields(next)) {
+                    flagCheck = true;
+                    protokol.write(next.getLastName() + " " + next.getFirstName() + " " + next.getSecondName() + " " + next.getSer() + " " + next.getNumber() + " Проверка полей: успешно" + System.lineSeparator());
+                } else {
+                    flagCheck = false;
+                    protokol.write(next.getLastName() + " " + next.getFirstName() + " " + next.getSecondName() + " " + next.getSer() + " " + next.getNumber() + " Проверка полей: НЕ ЗАПОЛНЕНЫ ПОЛЯ" + System.lineSeparator());
+                }
+                
+                // 2. проверить пасп
+                res = this.mainApp.checkPassport(next.getSer(), next.getNumber());
+
+                if ("1".equals(res)) {
+                    protokol.write(next.getLastName() + " " + next.getFirstName() + " " + next.getSecondName() + " " + next.getSer() + " " + next.getNumber() + " Проверка паспорта: успешно" + System.lineSeparator());
+                } else {
+                    protokol.write(next.getLastName() + " " + next.getFirstName() + " " + next.getSecondName() + " " + next.getSer() + " " + next.getNumber() + " Проверка паспорта: Внимание паспорт в списке недействительных паспортов !!!" + System.lineSeparator());
+                }
+                
+                //write reestrs
+                if (flagCheck && "1".equals(res)) {
+                    goodReestr.write(next.getSrcString() + System.lineSeparator());
+                } else {
+                    badReestr.write(next.getSrcString() + System.lineSeparator());
+                }
+
+            }
+
+            protokol.write("===================================================================================" + System.lineSeparator());
+            protokol.write("ОКОНЧАНИЕ ПРОВЕРКИ ПЕРВОГО УРОВНЯ                                                  " + System.lineSeparator());
+            protokol.write("===================================================================================" + System.lineSeparator());
+
+        } catch (IOException ex) {
+
+            System.out.println("checkPassport: " + ex.toString());
+        }
+
+        this.mainApp.closeDb();
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initOwner(this.mainApp.getPrimaryStage());
+        alert.setTitle("Info");
+        alert.setHeaderText("info");
+        alert.setContentText("Проверки выполнены");
+        alert.showAndWait();
+
     }
 
 }

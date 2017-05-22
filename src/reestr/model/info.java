@@ -30,6 +30,8 @@ public class info {
     private StringProperty dateBirth;
     private StringProperty pdl;
     private StringProperty snils;
+    
+    private String srcString;
 
     public info(String lastName, String firstName, String secondName, String ser, String number) {
         this.lastName = new SimpleStringProperty(lastName);
@@ -301,5 +303,15 @@ public class info {
     public String getsnils() {
         return snils.get();
     }
+
+    public String getSrcString() {
+        return srcString;
+    }
+
+    public void setSrcString(String srcString) {
+        this.srcString = srcString;
+    }
+    
+    
 
 }

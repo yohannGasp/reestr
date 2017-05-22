@@ -5,6 +5,8 @@
  */
 package reestr;
 
+import DAO.DB;
+import DAO.serviceDAO;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,12 +34,22 @@ import reestr.view.RootLayoutController;
  */
 public class Reestr extends Application {
 
+    private serviceDAO serviceDAO;
+    private DB db;
+    private static String connectionString = "jdbc:oracle:thin:@172.25.1.50:1521:BIB_PROD";
+    private static String userCft = "GATE_SERVICE";
+    private static String passwordCft = "2w3e4r5t";
+    
+    //переделать курсы, чтобы чипер расшифровывал на лету, а не пароль в открытом виде
+
     private Stage primaryStage;
     private BorderPane rootLayout;
     private AnchorPane infoOverview;
 
     private String login = null;
     private String psw = null;
+
+    private String parentDir;
 
     private ObservableList<info> infoData = FXCollections.observableArrayList();
 
@@ -71,6 +83,9 @@ public class Reestr extends Application {
 
         FXMLDocumentController controller = loader1.getController();
         controller.setMainApp(this);
+
+        db = new DB(connectionString, userCft, passwordCft);
+        serviceDAO = new serviceDAO(db);
 
     }
 
@@ -107,8 +122,11 @@ public class Reestr extends Application {
 
         fileChooser.getExtensionFilters().add(extFilter);
         File file = fileChooser.showOpenDialog(this.primaryStage);
+        
+        this.parentDir = file.getParentFile().toString();
+
         if (file != null) {
-            try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "windows-1251"));) {
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "windows-1251"));) {
                 String strLine;
                 while ((strLine = br.readLine()) != null) {
                     ind++;
@@ -184,12 +202,13 @@ public class Reestr extends Application {
                         info.setadressPostal(adressPostal);
                         info.setpdl(pdl);
                         info.setsnils(snils);
+                        info.setSrcString(strLine);
 
                         infoData.add(info);
 
                     }
                 }
-                
+
             } catch (IOException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(this.primaryStage);
@@ -211,7 +230,15 @@ public class Reestr extends Application {
         return primaryStage;
     }
 
-    public void toCft() {
+    /**
+     * checkPassport
+     *
+     * @param ser
+     * @param num
+     * @return
+     */
+    public String checkPassport(String ser, String num) {
+        String res = "";
 
         if (login == null && psw == login) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -220,7 +247,14 @@ public class Reestr extends Application {
             alert.setHeaderText("");
             alert.setContentText("");
             alert.showAndWait();
+            login = userCft;
+            psw = passwordCft;
         }
+
+        res = this.serviceDAO.chechPassport(ser, num);
+        System.out.println(ser + " " + num + " " + res);
+
+        return res;
 
     }
 
@@ -229,6 +263,17 @@ public class Reestr extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+    }
+
+    /**
+     * closeDb
+     */
+    public void closeDb() {
+        db.Close();
+    }
+
+    public String getParentDir() {
+        return parentDir;
     }
 
 }
