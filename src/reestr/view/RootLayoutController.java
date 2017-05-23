@@ -16,6 +16,7 @@ import reestr.Reestr;
 public class RootLayoutController {
 
     private Reestr mainApp;
+    private FXMLDocumentController FXMLDocumentController;
 
     public void setMainApp(Reestr mainApp) {
         this.mainApp = mainApp;
@@ -33,11 +34,18 @@ public class RootLayoutController {
         alert.showAndWait();
     }
 
+    public void setFXMLDocumentController(FXMLDocumentController FXMLDocumentController) {
+        this.FXMLDocumentController = FXMLDocumentController;
+    }
+
     @FXML
     private void loadInfoFromFile() {
+        this.FXMLDocumentController.ldInfofromfile();
+    }
 
-        
-
+    @FXML
+    private void chkfirstLevel() {
+        this.FXMLDocumentController.chkFirstLevel();
     }
 
 }

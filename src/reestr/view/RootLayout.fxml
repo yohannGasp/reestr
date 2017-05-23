@@ -12,12 +12,12 @@
         <menus>
           <Menu mnemonicParsing="false" text="Файл">
             <items>
-              <MenuItem mnemonicParsing="false" text="Загрузить реестр" />
+              <MenuItem mnemonicParsing="false" onAction="#loadInfoFromFile" text="Открыть реестр" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Сервис">
             <items>
-              <MenuItem mnemonicParsing="false" text="Проверить паспорта" />
+              <MenuItem mnemonicParsing="false" onAction="#chkfirstLevel" text="Проверка 1-го этапа" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Справка">

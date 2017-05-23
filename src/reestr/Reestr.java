@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package reestr;
 
 import DAO.DB;
@@ -12,6 +7,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +22,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.SecretKeySpec;
 import reestr.model.info;
 import reestr.view.FXMLDocumentController;
 import reestr.view.RootLayoutController;
@@ -36,12 +40,12 @@ public class Reestr extends Application {
 
     private serviceDAO serviceDAO;
     private DB db;
-    private static String connectionString = "jdbc:oracle:thin:@172.25.1.50:1521:BIB_PROD";
-    private static String userCft = "GATE_SERVICE";
-    private static String passwordCft = "2w3e4r5t";
+    private static final String connectionString = "YR3oJGx4TwrKhHuMuamMHmmfORDLsJ2fa7eL7Xx/wJv1DQV2cf8DuVPDvf6QB178";
+    private static final String userCft = "rWwm5KsgumCmyBzLBsdBTw==";
+    private static final String passwordCft = "XpXUcBBYASd/kzwvM1b/eA==";
     
-    //переделать курсы, чтобы чипер расшифровывал на лету, а не пароль в открытом виде
 
+    //переделать курсы, чтобы чипер расшифровывал на лету, а не пароль в открытом виде
     private Stage primaryStage;
     private BorderPane rootLayout;
     private AnchorPane infoOverview;
@@ -84,7 +88,9 @@ public class Reestr extends Application {
         FXMLDocumentController controller = loader1.getController();
         controller.setMainApp(this);
 
-        db = new DB(connectionString, userCft, passwordCft);
+        rootController.setFXMLDocumentController(controller);
+        
+        db = new DB(getStr(connectionString), getStr(userCft), getStr(passwordCft));
         serviceDAO = new serviceDAO(db);
 
     }
@@ -122,7 +128,7 @@ public class Reestr extends Application {
 
         fileChooser.getExtensionFilters().add(extFilter);
         File file = fileChooser.showOpenDialog(this.primaryStage);
-        
+
         this.parentDir = file.getParentFile().toString();
 
         if (file != null) {
@@ -239,6 +245,20 @@ public class Reestr extends Application {
      */
     public String checkPassport(String ser, String num) {
         String res = "";
+        
+        res = this.serviceDAO.chechPassport(ser, num);
+        
+        return res;
+        
+    }
+
+    /**
+     * toCft
+     *
+     * @return
+     */
+    public String toCft() {
+        String res = "";
 
         if (login == null && psw == login) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -247,15 +267,11 @@ public class Reestr extends Application {
             alert.setHeaderText("");
             alert.setContentText("");
             alert.showAndWait();
-            login = userCft;
-            psw = passwordCft;
+            login = "";
+            psw = "";
         }
 
-        res = this.serviceDAO.chechPassport(ser, num);
-        System.out.println(ser + " " + num + " " + res);
-
         return res;
-
     }
 
     /**
@@ -274,6 +290,32 @@ public class Reestr extends Application {
 
     public String getParentDir() {
         return parentDir;
+    }
+
+    /**
+     * getStr
+     * @param property
+     * @return
+     */
+    public static String getStr(String property) {
+
+        byte[] result = null;
+        final String ALGORITHM = "AES";
+
+        byte[] property_pool = "MZygpewJsCpRrfOr".getBytes(StandardCharsets.UTF_8);
+
+        try {
+
+            SecretKeySpec secretKey = new SecretKeySpec(property_pool, ALGORITHM);
+            Cipher cipher = Cipher.getInstance(ALGORITHM);
+            cipher.init(Cipher.DECRYPT_MODE, secretKey);
+            result = cipher.doFinal(Base64.getDecoder().decode(property));
+
+        } catch (InvalidKeyException | NoSuchAlgorithmException | BadPaddingException | IllegalBlockSizeException | NoSuchPaddingException e) {
+            System.out.println("getStr: " + e.toString());
+        }
+
+        return new String(result);
     }
 
 }
