@@ -29,7 +29,7 @@ public class RootLayoutController {
         alert.initOwner(mainApp.getPrimaryStage());
         alert.setTitle("О программе");
         alert.setHeaderText("Обработка реестров");
-        alert.setContentText("версия 1.0 от 18.05.2017");
+        alert.setContentText("версия 1.2 от 24.05.2017");
 
         alert.showAndWait();
     }

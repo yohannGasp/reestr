@@ -54,6 +54,7 @@ public class DB {
             
             if (this.conn != null) {
                 this.conn.close();
+                this.conn = null;
             }
             
         } catch (SQLException e) {

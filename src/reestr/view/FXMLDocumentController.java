@@ -5,9 +5,13 @@
  */
 package reestr.view;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.Iterator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +20,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -42,6 +48,10 @@ public class FXMLDocumentController {
     private TableColumn<info, String> serNameColumn;
     @FXML
     private TableColumn<info, String> numberNameColumn;
+    @FXML
+    private TableColumn<info, String> fieldColumn;
+    @FXML
+    private TableColumn<info, String> chkPasspColumn;
 
     @FXML
     private TextField tfWhom;
@@ -71,12 +81,15 @@ public class FXMLDocumentController {
     private CheckBox cbPdl;
     @FXML
     private TextField tfSnils;
+    @FXML
+    private ProgressBar pbProgress;
 
     private ObservableList<String> polData = FXCollections.observableArrayList();
 
     private Reestr mainApp;
 
     int CountRowInfoTable;
+    info currentInfo;
 
     public FXMLDocumentController() {
     }
@@ -92,6 +105,8 @@ public class FXMLDocumentController {
         secondNameColumn.setCellValueFactory(cellData -> cellData.getValue().SecondNameProperty());
         serNameColumn.setCellValueFactory(cellData -> cellData.getValue().SerProperty());
         numberNameColumn.setCellValueFactory(cellData -> cellData.getValue().NumberProperty());
+        fieldColumn.setCellValueFactory(cellData -> cellData.getValue().fieldProperty());
+        chkPasspColumn.setCellValueFactory(cellData -> cellData.getValue().chkPspProperty());
 
         polData.add("Мужской");
         polData.add("Женский");
@@ -101,6 +116,63 @@ public class FXMLDocumentController {
 
         infoTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showInfoDetails(newValue));
 
+        fieldColumn.setCellFactory(column -> {
+            return new TableCell<info, String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    if (item == null || empty) {
+                    } else {
+
+                        setText(item);
+                        info info = getTableView().getItems().get(getIndex());
+
+                        if (info.getfield().equals("NOT")) {
+                            setStyle("-fx-background-color: red");
+                        } else {
+                            setStyle("-fx-background-color: inherit");
+                        }
+
+                    }
+                }
+            };
+        });
+
+        chkPasspColumn.setCellFactory(column -> {
+            return new TableCell<info, String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    if (item == null || empty) {
+                    } else {
+
+                        setText(item);
+                        info info = getTableView().getItems().get(getIndex());
+
+                        if (info.getchkPsp().equals("NOT")) {
+                            setStyle("-fx-background-color: red");
+                        } else {
+                            setStyle("-fx-background-color: inherit");
+                        }
+
+                    }
+                }
+            };
+        });
+
+        pbProgress.setProgress(0.0);
+
+    }
+
+    /**
+     * increment progress bar
+     */
+    public void incPb() {
+
+        double delta = (double) 1 / this.CountRowInfoTable;
+        pbProgress.setProgress(pbProgress.getProgress() + delta);
     }
 
     public void setMainApp(Reestr mainApp) {
@@ -135,11 +207,18 @@ public class FXMLDocumentController {
             taadressFact.setText(info.getadressFact());
             taadressPostal.setText(info.getadressPostal());
             if (info.getpdl().equals("IPDL")) {
+                cbPdl.setVisible(true);
                 cbPdl.setSelected(true);
             } else if (info.getpdl().equals("NOT_IPDL")) {
+                cbPdl.setVisible(true);
                 cbPdl.setSelected(false);
+            } else if ("".equals(info.getpdl())) {
+                cbPdl.setVisible(false);
             }
+            System.out.println(info.getpdl());
             tfSnils.setText(info.getsnils());
+
+            this.currentInfo = info;
 
         } else {
 
@@ -163,41 +242,156 @@ public class FXMLDocumentController {
 
     @FXML
     private void loadInfoFromFile() {
-        
-        infoTable.getItems().remove(0, infoTable.getItems().size());
+
+        infoTable.getItems().clear();
+        infoTable.refresh();
+        pbProgress.setProgress(0.0);
 
         this.mainApp.loadInfoFromFile();
         infoTable.setItems(this.mainApp.getInfoData());
         infoTable.getSelectionModel().selectFirst();
 
+        this.CountRowInfoTable = infoTable.getItems().size();
+
     }
 
-    private boolean checkFields(info info) {
-        boolean result = false;
+    private String checkFields(info info) {
+        String result = "false";
 
-        /**
-         * Фамилия Имя Серия паспорта Номер паспорта Дата выдачи паспорта Орган
-         * выдавший паспорт
-         */
         if (!"".equals(info.getLastName())
                 && !"".equals(info.getFirstName())
+                && !"".equals(info.getSecondName())
                 && !"".equals(info.getSer())
                 && !"".equals(info.getNumber())
                 && !"".equals(info.getpDateIssue())
                 && !"".equals(info.getpWhom())) {
-            result = true;
+            result = "true";
+        } else {
+            result += "".equals(info.getLastName()) ? "Фамилия, " : "";
+            result += "".equals(info.getFirstName()) ? "Имя, " : "";
+            result += "".equals(info.getSecondName()) ? "Отчество, " : "";
+            result += "".equals(info.getSer()) ? "Серия паспорта, " : "";
+            result += "".equals(info.getNumber()) ? "Номер паспорта, " : "";
+            result += "".equals(info.getpDateIssue()) ? "Дата выдачи паспорта, " : "";
+            result += "".equals(info.getpWhom()) ? "Орган выдавший паспорт, " : "";
         }
 
         return result;
     }
 
     @FXML
-    private void toCft() {
-        this.mainApp.toCft();
+    private void toCft() throws FileNotFoundException {
+
+        // 1. save info
+        this.currentInfo.setpWhom(tfWhom.getText());
+        this.currentInfo.setpDateIssue(DateUtil.format(dpDateIssue.getValue()));
+        this.currentInfo.setpCode(tfCode.getText());
+        this.currentInfo.setpBirthPlace(tfBirthPlace.getText());
+        this.currentInfo.setppAdressResident(tfAdressResident.getText());
+        this.currentInfo.settel(tfTel.getText());
+        this.currentInfo.setcodeWord1(tfCodeWord1.getText());
+        this.currentInfo.setcodeWord2(tfCodeWord2.getText());
+
+        if (cbSex.getValue().equals("Мужской")) {
+            this.currentInfo.setsex("М");
+        } else {
+            this.currentInfo.setsex("Ж");
+        }
+
+        this.currentInfo.setdateBirth(DateUtil.format(dpdateBirth.getValue()));
+        this.currentInfo.setadressFact(taadressFact.getText());
+        this.currentInfo.setadressPostal(taadressPostal.getText());
+
+        if (cbPdl.isSelected()) {
+            this.currentInfo.setpdl("IPDL");
+        } else {
+            this.currentInfo.setpdl("NOT_IPDL");
+        }
+
+        this.currentInfo.setsnils(tfSnils.getText());
+
+        // 2. save to file
+        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(this.mainApp.currentFile), "cp1251"))) {
+
+            bw.write("header\n");
+
+            Iterator<info> iterator = infoTable.getItems().iterator();
+            while (iterator.hasNext()) {
+                info next = iterator.next();
+
+                String[] arrLine = next.getSrcString().split(";");
+
+                StringBuilder sb = new StringBuilder();
+
+                sb.append(arrLine[0].concat(";"));
+                sb.append(next.getLastName().concat(";"));
+                sb.append(next.getFirstName().concat(";"));
+                sb.append(next.getSecondName().concat(";"));
+                sb.append(next.getsex().concat(";"));
+                sb.append(arrLine[5].concat(";"));
+                sb.append(arrLine[6].concat(";"));
+                sb.append(next.getdateBirth().concat(";"));
+                sb.append(next.getpBirthPlace().concat(";"));
+                sb.append(arrLine[9].concat(";"));
+                sb.append(arrLine[10].concat(";"));
+                sb.append(arrLine[11].concat(";"));
+                sb.append(arrLine[12].concat(";"));
+                sb.append(arrLine[13].concat(";"));
+                sb.append(arrLine[14].concat(";"));
+                sb.append(arrLine[15].concat(";"));
+                sb.append(arrLine[16].concat(";"));
+                sb.append(arrLine[17].concat(";"));
+                sb.append(arrLine[18].concat(";"));
+                sb.append(arrLine[19].concat(";"));
+                sb.append(arrLine[20].concat(";"));
+                sb.append(arrLine[21].concat(";"));
+                sb.append(arrLine[22].concat(";"));
+                sb.append(arrLine[23].concat(";"));
+                sb.append(arrLine[24].concat(";"));
+                sb.append(arrLine[25].concat(";"));
+                sb.append(arrLine[26].concat(";"));
+                sb.append(arrLine[27].concat(";"));
+                sb.append(arrLine[28].concat(";"));
+                sb.append(arrLine[29].concat(";"));
+                sb.append(arrLine[30].concat(";"));
+                sb.append(next.gettel().concat(";"));
+                sb.append(arrLine[32].concat(";"));
+                sb.append(next.getSer().concat(";"));
+                sb.append(next.getNumber().concat(";"));
+                sb.append(next.getpDateIssue().concat(";"));
+                sb.append(next.getpWhom().concat(";"));
+                sb.append(arrLine[37].concat(";"));
+                sb.append(arrLine[38].concat(";"));
+                sb.append(arrLine[39].concat(";"));
+                sb.append(next.getcodeWord1().concat(";"));
+                sb.append(arrLine[41].concat(";"));
+                sb.append(next.getsnils().concat(";"));
+
+                bw.write(sb.toString() + System.lineSeparator());
+
+            }
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        // 3. save to cft
+        //this.mainApp.toCft();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initOwner(this.mainApp.getPrimaryStage());
+        alert.setTitle("Info");
+        alert.setHeaderText("info");
+        alert.setContentText("Данные сохранены");
+        alert.showAndWait();
+
     }
 
     @FXML
     private void checkFirstLevel() {
+
+        int countFl = 0;
+        int countPs = 0;
+        int countAll = 0;
 
         if (infoTable.getItems().size() > 0) {
 
@@ -206,9 +400,9 @@ public class FXMLDocumentController {
                 new File(dir).mkdir();
             }
 
-            File file_r1 = new File(dir + File.separator + "good_reestr.txt");
-            File file_r2 = new File(dir + File.separator + "bad_reestr.txt");
-            File file_pr = new File(dir + File.separator + "protokol.txt");
+            File file_r1 = new File(dir + File.separator + "OK_" + this.mainApp.currentFile.getName());
+            File file_r2 = new File(dir + File.separator + "BAD_" + this.mainApp.currentFile.getName());
+            File file_pr = new File(dir + File.separator + "LOG_" + this.mainApp.currentFile.getName());
 
             try (FileWriter goodReestr = new FileWriter(file_r1, false);
                     FileWriter badReestr = new FileWriter(file_r2, false);
@@ -227,31 +421,57 @@ public class FXMLDocumentController {
 
                     info next = iterator.next();
                     infoTable.getSelectionModel().select(next); // визуально выделяем 
+                    incPb();
+                    countAll++;
 
-                    // 1. проверить полей
-                    boolean flagCheck = checkFields(next);
+                    // 1. проверка полей
+                    String flagCheck = checkFields(next);
 
-                    if (flagCheck) {
-                        protokol.write(next.getLastName() + " " + next.getFirstName() + " " + next.getSecondName() + " " + next.getSer() + " " + next.getNumber() + " Проверка полей: успешно" + System.lineSeparator());
+                    if (flagCheck.equals("true")) {
+                        protokol.write(next.getLastName() + " " + next.getFirstName() + " " + next.getSecondName() + " " + next.getSer() + " " + next.getNumber() + " Проверка полей: успешно;");
+                        next.setfield("ok");
                     } else {
-                        protokol.write(next.getLastName() + " " + next.getFirstName() + " " + next.getSecondName() + " " + next.getSer() + " " + next.getNumber() + " Проверка полей: НЕ ЗАПОЛНЕНЫ ПОЛЯ" + System.lineSeparator());
+                        String spl = flagCheck.substring(5);
+                        protokol.write(next.getLastName() + " " + next.getFirstName() + " " + next.getSecondName() + " " + next.getSer() + " " + next.getNumber() + " Проверка полей: НЕ ЗАПОЛНЕНЫ ПОЛЯ - " + spl + ";");
+                        next.setfield("NOT");
+                        countFl++;
                     }
 
-                    // 2. проверить пасп
-                    String res = this.mainApp.checkPassport(next.getSer(), next.getNumber());
+                    // 2. проверка пасп
+                    String res;
+                    if (!"".equals(next.getSer()) && !"".equals(next.getNumber())) {
+                        res = this.mainApp.checkPassport(next.getSer(), next.getNumber());
+                    } else {
+                        res = "-1";
+                    }
 
                     if ("1".equals(res)) {
-                        protokol.write(next.getLastName() + " " + next.getFirstName() + " " + next.getSecondName() + " " + next.getSer() + " " + next.getNumber() + " Проверка паспорта: успешно" + System.lineSeparator());
-                    } else {
-                        protokol.write(next.getLastName() + " " + next.getFirstName() + " " + next.getSecondName() + " " + next.getSer() + " " + next.getNumber() + " Проверка паспорта: Внимание паспорт в списке недействительных паспортов !!!" + System.lineSeparator());
+                        protokol.write("Проверка паспорта: успешно" + System.lineSeparator());
+                        next.setchkPsp("ok");
+                    }
+                    if ("-1".equals(res)) {
+                        protokol.write("Проверка паспорта: Для проверки необходимо серию и номер документа" + System.lineSeparator());
+                    }
+                    if ("0".equals(res)) {
+                        protokol.write("Проверка паспорта: Внимание паспорт в списке недействительных паспортов !!! " + System.lineSeparator());
+                        next.setchkPsp("NOT");
+                        countPs++;
                     }
 
                     //write reestrs
-                    if (flagCheck && "1".equals(res)) {
+                    if (flagCheck.equals("true") && "1".equals(res)) {
                         goodReestr.write(next.getSrcString() + System.lineSeparator());
                     } else {
                         badReestr.write(next.getSrcString() + System.lineSeparator());
                     }
+                    
+                    //to msword
+                    
+                    /**
+                     * Тип карты ставим Classic счет не заполняем. 
+                     * Сохраняем там же, где хороший реестр с префиксом pril5_
+                     * 
+                     */
 
                 }
 
@@ -270,7 +490,10 @@ public class FXMLDocumentController {
             alert.initOwner(this.mainApp.getPrimaryStage());
             alert.setTitle("Info");
             alert.setHeaderText("info");
-            alert.setContentText("Проверки выполнены");
+            alert.setContentText("Проверки выполнены" + System.lineSeparator() + System.lineSeparator()
+                    + "Всего записей в реестре: " + countAll + System.lineSeparator()
+                    + "Не прошло проверку обязательных полей: " + countFl + System.lineSeparator()
+                    + "Не прошло проверку паспорта: " + countPs);
             alert.showAndWait();
 
         } else {

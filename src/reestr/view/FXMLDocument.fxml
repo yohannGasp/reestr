@@ -18,7 +18,9 @@
                <children>
                   <TableView fx:id="infoTable" layoutX="6.0" layoutY="5.0" prefHeight="291.0" prefWidth="165.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn fx:id="lastNameColumn" prefWidth="75.0" text="Фамилия" />
+                        <TableColumn fx:id="fieldColumn" prefWidth="28.0" text="З" />
+                        <TableColumn fx:id="chkPasspColumn" prefWidth="31.0" text="П" />
+                      <TableColumn fx:id="lastNameColumn" prefWidth="91.0" text="Фамилия" />
                       <TableColumn fx:id="firstNameColumn" prefWidth="75.0" text="Имя" />
                         <TableColumn fx:id="secondNameColumn" prefWidth="75.0" text="Отчество" />
                         <TableColumn fx:id="serNameColumn" prefWidth="75.0" text="Серия" />
@@ -32,7 +34,7 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="798.0" prefWidth="776.0">
                <children>
-                  <Button layoutX="62.0" layoutY="836.0" mnemonicParsing="false" onAction="#loadInfoFromFile" prefHeight="49.0" prefWidth="158.0" text="Открыть реестр" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="30.0" />
+                  <Button layoutX="30.0" layoutY="702.0" mnemonicParsing="false" onAction="#loadInfoFromFile" prefHeight="49.0" prefWidth="158.0" text="Открыть реестр" AnchorPane.leftAnchor="30.0" />
                   <GridPane layoutX="27.0" prefHeight="542.0" prefWidth="777.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="384.0" minWidth="10.0" prefWidth="287.0" />
@@ -98,7 +100,8 @@
                      </children>
                   </GridPane>
                   <Button layoutX="30.0" layoutY="616.0" mnemonicParsing="false" onAction="#toCft" prefHeight="49.0" prefWidth="158.0" text="Сохранить" AnchorPane.leftAnchor="30.0" />
-                  <Button layoutX="225.0" layoutY="829.0" mnemonicParsing="false" onAction="#checkFirstLevel" prefHeight="49.0" prefWidth="165.0" text="Проверка 1-го этапа" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="200.0" />
+                  <Button layoutX="200.0" layoutY="702.0" mnemonicParsing="false" onAction="#checkFirstLevel" prefHeight="49.0" prefWidth="165.0" text="Проверка 1-го этапа" AnchorPane.leftAnchor="200.0" />
+                  <ProgressBar fx:id="pbProgress" layoutX="9.0" layoutY="868.0" prefWidth="200.0" progress="0.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" />
                </children>
             </AnchorPane>
         </items>

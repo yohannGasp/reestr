@@ -43,7 +43,6 @@ public class Reestr extends Application {
     private static final String connectionString = "YR3oJGx4TwrKhHuMuamMHmmfORDLsJ2fa7eL7Xx/wJv1DQV2cf8DuVPDvf6QB178";
     private static final String userCft = "rWwm5KsgumCmyBzLBsdBTw==";
     private static final String passwordCft = "XpXUcBBYASd/kzwvM1b/eA==";
-    
 
     //переделать курсы, чтобы чипер расшифровывал на лету, а не пароль в открытом виде
     private Stage primaryStage;
@@ -54,6 +53,8 @@ public class Reestr extends Application {
     private String psw = null;
 
     private String parentDir;
+    private File lastDir = null;
+    public File currentFile;
 
     private ObservableList<info> infoData = FXCollections.observableArrayList();
 
@@ -89,7 +90,7 @@ public class Reestr extends Application {
         controller.setMainApp(this);
 
         rootController.setFXMLDocumentController(controller);
-        
+
         db = new DB(getStr(connectionString), getStr(userCft), getStr(passwordCft));
         serviceDAO = new serviceDAO(db);
 
@@ -124,12 +125,17 @@ public class Reestr extends Application {
         FileChooser fileChooser = new FileChooser();
 
         fileChooser.setTitle("Open Document");
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt", "*.TXT");
 
         fileChooser.getExtensionFilters().add(extFilter);
+        if (lastDir != null) {
+            fileChooser.setInitialDirectory(lastDir);
+        }
         File file = fileChooser.showOpenDialog(this.primaryStage);
 
         this.parentDir = file.getParentFile().toString();
+        this.lastDir = file.getParentFile();
+        this.currentFile = file;
 
         if (file != null) {
             try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "windows-1251"));) {
@@ -149,7 +155,7 @@ public class Reestr extends Application {
                             number = arrLine[34] != null ? arrLine[34] : "";
                             DateIssue = arrLine[35] != null ? arrLine[35] : "";
                             whom = arrLine[36] != null ? arrLine[36] : "";
-                            Code = "code no found";
+                            Code = "";
                             BirthPlace = arrLine[8] != null ? arrLine[8] : "";
 
                             AdressResident = arrLine[10] != null ? arrLine[10] : ",";
@@ -165,7 +171,7 @@ public class Reestr extends Application {
 
                             tel = arrLine[31] != null ? arrLine[31] : "";
                             codeWord1 = arrLine[40] != null ? arrLine[40] : "";
-                            codeWord2 = "not";
+                            codeWord2 = "";
                             sex = arrLine[4] != null ? arrLine[4] : "";
                             dateBirth = arrLine[7] != null ? arrLine[7] : "";
 
@@ -181,7 +187,13 @@ public class Reestr extends Application {
                             adressFact += arrLine[29] != null ? "," + arrLine[29] : ",";
 
                             adressPostal = AdressResident;
-                            pdl = arrLine[46] != null ? arrLine[46] : "";
+
+                            if (arrLine.length > 45) {
+                                pdl = arrLine[46] != null ? arrLine[46] : "";
+                            } else {
+                                pdl = "";
+                            }
+
                             snils = arrLine[42] != null ? arrLine[42] : "";
 
                         } catch (ArrayIndexOutOfBoundsException e) {
@@ -213,6 +225,7 @@ public class Reestr extends Application {
                         infoData.add(info);
 
                     }
+
                 }
 
             } catch (IOException e) {
@@ -224,6 +237,8 @@ public class Reestr extends Application {
                 alert.showAndWait();
 
             }
+
+            file = null;
         }
 
     }
@@ -245,11 +260,11 @@ public class Reestr extends Application {
      */
     public String checkPassport(String ser, String num) {
         String res = "";
-        
+
         res = this.serviceDAO.chechPassport(ser, num);
-        
+
         return res;
-        
+
     }
 
     /**
@@ -294,6 +309,7 @@ public class Reestr extends Application {
 
     /**
      * getStr
+     *
      * @param property
      * @return
      */

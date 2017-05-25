@@ -15,6 +15,8 @@ public class info {
     private StringProperty secondName;
     private StringProperty ser;
     private StringProperty number;
+    private StringProperty field;
+    private StringProperty chkPsp;
 
     private StringProperty pWhom;
     private StringProperty pDateIssue;
@@ -30,7 +32,7 @@ public class info {
     private StringProperty dateBirth;
     private StringProperty pdl;
     private StringProperty snils;
-    
+
     private String srcString;
 
     public info(String lastName, String firstName, String secondName, String ser, String number) {
@@ -39,6 +41,8 @@ public class info {
         this.secondName = new SimpleStringProperty(secondName);
         this.ser = new SimpleStringProperty(ser);
         this.number = new SimpleStringProperty(number);
+        this.field = new SimpleStringProperty("");
+        this.chkPsp = new SimpleStringProperty("");
 
         this.pWhom = new SimpleStringProperty("");
         this.pDateIssue = new SimpleStringProperty("");
@@ -68,6 +72,32 @@ public class info {
 
     public StringProperty firstNameProperty() {
         return firstName;
+    }
+
+    //field
+    public String getfield() {
+        return field.get();
+    }
+
+    public void setfield(String field) {
+        this.field.set(field);
+    }
+
+    public StringProperty fieldProperty() {
+        return field;
+    }
+
+    //chkPsp
+    public String getchkPsp() {
+        return chkPsp.get();
+    }
+
+    public void setchkPsp(String chkPsp) {
+        this.chkPsp.set(chkPsp);
+    }
+
+    public StringProperty chkPspProperty() {
+        return chkPsp;
     }
 
     //lastName
@@ -311,7 +341,5 @@ public class info {
     public void setSrcString(String srcString) {
         this.srcString = srcString;
     }
-    
-    
 
 }
