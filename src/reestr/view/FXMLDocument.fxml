@@ -34,74 +34,221 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="798.0" prefWidth="776.0">
                <children>
-                  <Button layoutX="30.0" layoutY="702.0" mnemonicParsing="false" onAction="#loadInfoFromFile" prefHeight="49.0" prefWidth="158.0" text="Открыть реестр" AnchorPane.leftAnchor="30.0" />
-                  <GridPane layoutX="27.0" prefHeight="542.0" prefWidth="777.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="384.0" minWidth="10.0" prefWidth="287.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="494.0" minWidth="10.0" prefWidth="490.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints maxHeight="50.0" minHeight="1.0" prefHeight="50.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <Label text="Паспорт кем выдан" />
-                        <TextField fx:id="tfWhom" GridPane.columnIndex="1">
-                           <GridPane.margin>
-                              <Insets />
-                           </GridPane.margin></TextField>
-                        <Label text="Дата выдачи" GridPane.rowIndex="1" />
-                        <Label text="Код подразделения" GridPane.rowIndex="2" />
-                        <Label text="Место рождения" GridPane.rowIndex="3" />
-                        <Label text="Адрес прописки" GridPane.rowIndex="4" />
-                        <Label text="Телефон" GridPane.rowIndex="5" />
-                        <Label text="Кодовое слово 1" GridPane.rowIndex="6" />
-                        <Label text="Кодовое слово 2" GridPane.rowIndex="7" />
-                        <Label text="Пол клиента" GridPane.rowIndex="8" />
-                        <Label text="Дата рождения" GridPane.rowIndex="9" />
-                        <Label prefHeight="39.0" prefWidth="295.0" text="Адрес Место пребывания(фактического нахождения)" wrapText="true" GridPane.rowIndex="10" />
-                        <Label text="Адрес Почтовый" GridPane.rowIndex="11" />
-                        <Label text="Принадлежность к ПДЛ" GridPane.rowIndex="12" />
-                        <Label text="СНИЛС" GridPane.rowIndex="13" />
-                        <DatePicker fx:id="dpDateIssue" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="tfCode" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="tfBirthPlace" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="tfAdressResident" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextField fx:id="tfTel" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <TextField fx:id="tfCodeWord1" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <TextField fx:id="tfCodeWord2" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <CheckBox fx:id="cbPdl" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="12" />
-                        <DatePicker fx:id="dpdateBirth" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                        <TextArea fx:id="taadressFact" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="10">
-                           <GridPane.margin>
-                              <Insets bottom="5.0" top="5.0" />
-                           </GridPane.margin>
-                        </TextArea>
-                        <TextArea fx:id="taadressPostal" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="11">
-                           <GridPane.margin>
-                              <Insets bottom="5.0" top="5.0" />
-                           </GridPane.margin>
-                        </TextArea>
-                        <TextField fx:id="tfSnils" GridPane.columnIndex="1" GridPane.rowIndex="13" />
-                        <ChoiceBox fx:id="cbSex" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                        <TabPane prefHeight="200.0" prefWidth="627.0" tabClosingPolicy="UNAVAILABLE" GridPane.rowIndex="1" />
-                     </children>
-                  </GridPane>
-                  <Button layoutX="30.0" layoutY="616.0" mnemonicParsing="false" onAction="#toCft" prefHeight="49.0" prefWidth="158.0" text="Сохранить" AnchorPane.leftAnchor="30.0" />
-                  <Button layoutX="200.0" layoutY="702.0" mnemonicParsing="false" onAction="#checkFirstLevel" prefHeight="49.0" prefWidth="165.0" text="Проверка 1-го этапа" AnchorPane.leftAnchor="200.0" />
+                  <Button layoutX="30.0" layoutY="650.0" mnemonicParsing="false" onAction="#toCft" prefHeight="49.0" prefWidth="158.0" text="Сохранить" AnchorPane.leftAnchor="30.0" />
                   <ProgressBar fx:id="pbProgress" layoutX="9.0" layoutY="868.0" prefWidth="200.0" progress="0.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" />
+                  <TabPane layoutX="2.0" layoutY="4.0" prefHeight="627.0" prefWidth="837.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <tabs>
+                      <Tab text="Основные сведения">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="692.0" prefWidth="837.0">
+                                 <children>
+                                    <GridPane layoutX="24.0" layoutY="18.0" prefHeight="503.0" prefWidth="777.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+                                       <children>
+                                          <Label text="Паспорт кем выдан" />
+                                          <TextField fx:id="tfWhom" prefHeight="25.0" prefWidth="316.0" GridPane.columnIndex="1">
+                                             <GridPane.margin>
+                                                <Insets />
+                                             </GridPane.margin>
+                                          </TextField>
+                                          <Label text="Дата выдачи" GridPane.rowIndex="1" />
+                                          <Label text="Код подразделения" GridPane.rowIndex="2" />
+                                          <Label text="Место рождения" GridPane.rowIndex="3" />
+                                          <Label text="Телефон" GridPane.rowIndex="4" />
+                                          <Label text="Кодовое слово 1" GridPane.rowIndex="5" />
+                                          <Label text="Кодовое слово 2" GridPane.rowIndex="6" />
+                                          <Label text="Пол клиента" GridPane.rowIndex="7" />
+                                          <Label text="Дата рождения" GridPane.rowIndex="8" />
+                                          <Label text="ПДЛ" wrapText="true" GridPane.rowIndex="9" />
+                                          <Label text="СНИЛС" GridPane.rowIndex="10" />
+                                          <DatePicker fx:id="dpDateIssue" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <TextField fx:id="tfCode" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <TextField fx:id="tfBirthPlace" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <TextField fx:id="tfTel" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                          <TextField fx:id="tfCodeWord1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                          <TextField fx:id="tfCodeWord2" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                          <CheckBox fx:id="cbPdl" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                          <DatePicker fx:id="dpdateBirth" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                          <ChoiceBox fx:id="cbSex" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                          <TabPane prefHeight="200.0" prefWidth="627.0" tabClosingPolicy="UNAVAILABLE" GridPane.rowIndex="1" />
+                                          <TextField fx:id="tfSnils" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                                       </children>
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="380.0" minWidth="10.0" prefWidth="195.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="583.0" minWidth="0.0" prefWidth="581.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints maxHeight="50.0" minHeight="1.0" prefHeight="31.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="63.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="77.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="98.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="78.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="93.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="109.0" minHeight="10.0" prefHeight="26.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="44.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="74.0" minHeight="10.0" prefHeight="64.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                    </GridPane>
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
+                        <Tab text="Адрес прописки">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <GridPane layoutX="69.0" layoutY="39.0" prefHeight="543.0" prefWidth="777.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="380.0" minWidth="10.0" prefWidth="195.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="583.0" minWidth="10.0" prefWidth="582.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <Label text="Адрес прописки" GridPane.rowIndex="10" />
+                                          <TextArea fx:id="tfAdressResident" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                                          <Label text="Код страны" />
+                                          <Label text="Почтовый индекс" GridPane.rowIndex="1" />
+                                          <Label text="Код субъекта РФ" GridPane.rowIndex="2" />
+                                          <Label text="Район субъекта РФ" GridPane.rowIndex="3" />
+                                          <Label text="Город" GridPane.rowIndex="4" />
+                                          <Label text="Населенный пункт" GridPane.rowIndex="5" />
+                                          <Label text="Улица" GridPane.rowIndex="6" />
+                                          <Label text="Дом" GridPane.rowIndex="7" />
+                                          <Label text="Корпус" GridPane.rowIndex="8" />
+                                          <Label text="Квартира" GridPane.rowIndex="9" />
+                                          <TextField fx:id="tfadressRegCodeCountry" GridPane.columnIndex="1" />
+                                          <TextField fx:id="tfadressRegIndex" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <TextField fx:id="tfadressRegCodeSubject" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <TextField fx:id="tfadressRegRayonSubject" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <TextField fx:id="tfadressRegCity" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                          <TextField fx:id="tfadressRegNasPunkt" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                          <TextField fx:id="tfadressRegStreet" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                          <TextField fx:id="tfadressRegHouse" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                          <TextField fx:id="tfadressRegKorpus" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                          <TextField fx:id="tfadressRegKvartira" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </Tab>
+                        <Tab text="Адрес пребывания">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <GridPane layoutX="161.0" layoutY="155.0" prefHeight="464.0" prefWidth="777.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="380.0" minWidth="10.0" prefWidth="195.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="558.0" minWidth="10.0" prefWidth="550.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <Label prefHeight="39.0" prefWidth="295.0" text="Адрес места пребывания" wrapText="true" GridPane.rowIndex="10" />
+                                          <TextArea fx:id="taadressFact" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                                          <Label text="Код страны" />
+                                          <Label text="Почтовый индекс" GridPane.rowIndex="1" />
+                                          <Label text="Код субъекта РФ" GridPane.rowIndex="2" />
+                                          <Label text="Район субъекта РФ" GridPane.rowIndex="3" />
+                                          <Label text="Город" GridPane.rowIndex="4" />
+                                          <Label text="Населенный пункт" GridPane.rowIndex="5" />
+                                          <Label text="Улица" GridPane.rowIndex="6" />
+                                          <Label text="Дом" GridPane.rowIndex="7" />
+                                          <Label text="Корпус" GridPane.rowIndex="8" />
+                                          <Label text="Квартира" GridPane.rowIndex="9" />
+                                          <TextField fx:id="tfadressFactCodeCountry" GridPane.columnIndex="1" />
+                                          <TextField fx:id="tfadressFactIndex" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <TextField fx:id="tfadressFactCodeSubject" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <TextField fx:id="tfadressFactRayonSubject" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <TextField fx:id="tfadressFactCity" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                          <TextField fx:id="tfadressFactNasPunkt" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                          <TextField fx:id="tfadressFactStreet" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                          <TextField fx:id="tfadressFactHouse" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                          <TextField fx:id="tfadressFactKorpus" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                          <TextField fx:id="tfadressFactKvartira" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </Tab>
+                        <Tab fx:id="tfadressMailCodeCountry" text="Почтовый адрес">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <GridPane layoutX="250.0" layoutY="151.0" prefHeight="458.0" prefWidth="777.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="380.0" minWidth="10.0" prefWidth="195.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="589.0" minWidth="10.0" prefWidth="589.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <Label text="Адрес Почтовый" GridPane.rowIndex="10" />
+                                          <TextArea fx:id="taadressPostal" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                                          <Label text="Код страны" />
+                                          <Label text="Почтовый индекс" GridPane.rowIndex="1" />
+                                          <Label text="Код субъекта РФ" GridPane.rowIndex="2" />
+                                          <Label text="Район субъекта РФ" GridPane.rowIndex="3" />
+                                          <Label text="Город" GridPane.rowIndex="4" />
+                                          <Label text="Населенный пункт" GridPane.rowIndex="5" />
+                                          <Label text="Улица" GridPane.rowIndex="6" />
+                                          <Label text="Дом" GridPane.rowIndex="7" />
+                                          <Label text="Корпус" GridPane.rowIndex="8" />
+                                          <Label text="Квартира" GridPane.rowIndex="9" />
+                                          <TextField fx:id="tfadressMailIndex" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <TextField fx:id="tfadressMailCodeSubject" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <TextField fx:id="tfadressMailRayonSubject" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <TextField fx:id="tfadressMailCity" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                          <TextField fx:id="tfadressMailNasPunkt" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                          <TextField fx:id="tfadressMailStreet" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                          <TextField fx:id="tfadressMailHouse" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                          <TextField fx:id="tfadressMailKorpus" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                          <TextField fx:id="tfadressMailKvartira" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                          <TextField fx:id="tfadressMailCodeCountry1" GridPane.columnIndex="1" />
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </Tab>
+                    </tabs>
+                  </TabPane>
                </children>
             </AnchorPane>
         </items>

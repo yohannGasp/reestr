@@ -62,7 +62,7 @@ public class FXMLDocumentController {
     @FXML
     private TextField tfBirthPlace;
     @FXML
-    private TextField tfAdressResident;
+    private TextArea tfAdressResident;
     @FXML
     private TextField tfTel;
     @FXML
@@ -83,6 +83,69 @@ public class FXMLDocumentController {
     private TextField tfSnils;
     @FXML
     private ProgressBar pbProgress;
+
+    @FXML
+    private TextField tfadressRegCodeCountry;
+    @FXML
+    private TextField tfadressRegIndex;
+    @FXML
+    private TextField tfadressRegCodeSubject;
+    @FXML
+    private TextField tfadressRegRayonSubject;
+    @FXML
+    private TextField tfadressRegCity;
+    @FXML
+    private TextField tfadressRegNasPunkt;
+    @FXML
+    private TextField tfadressRegStreet;
+    @FXML
+    private TextField tfadressRegHouse;
+    @FXML
+    private TextField tfadressRegKorpus;
+    @FXML
+    private TextField tfadressRegKvartira;
+    @FXML
+    private TextField tfadressFactCodeCountry;
+    @FXML
+    private TextField tfadressFactIndex;
+    @FXML
+    private TextField tfadressFactCodeSubject;
+    @FXML
+    private TextField tfadressFactRayonSubject;
+    @FXML
+    private TextField tfadressFactCity;
+    @FXML
+    private TextField tfadressFactNasPunkt;
+    @FXML
+    private TextField tfadressFactStreet;
+    @FXML
+    private TextField tfadressFactHouse;
+    @FXML
+    private TextField tfadressFactKorpus;
+    @FXML
+    private TextField tfadressFactKvartira;
+    //@FXML
+    //private TextField tfadressMailCodeCountry;
+    @FXML
+    private TextField tfadressMailCodeCountry1;
+    @FXML
+    private TextField tfadressMailIndex;
+    @FXML
+    private TextField tfadressMailCodeSubject;
+    @FXML
+    private TextField tfadressMailRayonSubject;
+    @FXML
+    private TextField tfadressMailCity;
+    @FXML
+    private TextField tfadressMailNasPunkt;
+    @FXML
+    private TextField tfadressMailStreet;
+    @FXML
+    private TextField tfadressMailHouse;
+    @FXML
+    private TextField tfadressMailKorpus;
+    @FXML
+    private TextField tfadressMailKvartira;
 
     private ObservableList<String> polData = FXCollections.observableArrayList();
 
@@ -215,8 +278,40 @@ public class FXMLDocumentController {
             } else if ("".equals(info.getpdl())) {
                 cbPdl.setVisible(false);
             }
-            System.out.println(info.getpdl());
             tfSnils.setText(info.getsnils());
+
+            tfadressRegCodeCountry.setText(info.getadressRegCodeCountry());
+            tfadressRegIndex.setText(info.getadressRegIndex());
+            tfadressRegCodeSubject.setText(info.getadressRegCodeSubject());
+            tfadressRegRayonSubject.setText(info.getadressRegRayonSubject());
+            tfadressRegCity.setText(info.getadressRegCity());
+            tfadressRegNasPunkt.setText(info.getadressRegNasPunkt());
+            tfadressRegStreet.setText(info.getadressRegStreet());
+            tfadressRegHouse.setText(info.getadressRegHouse());
+            tfadressRegKorpus.setText(info.getadressRegKorpus());
+            tfadressRegKvartira.setText(info.getadressRegKvartira());
+
+            tfadressFactCodeCountry.setText(info.getadressFactCodeCountry());
+            tfadressFactIndex.setText(info.getadressFactIndex());
+            tfadressFactCodeSubject.setText(info.getadressFactCodeSubject());
+            tfadressFactRayonSubject.setText(info.getadressFactRayonSubject());
+            tfadressFactCity.setText(info.getadressFactCity());
+            tfadressFactNasPunkt.setText(info.getadressFactNasPunkt());
+            tfadressFactStreet.setText(info.getadressFactStreet());
+            tfadressFactHouse.setText(info.getadressFactHouse());
+            tfadressFactKorpus.setText(info.getadressFactKorpus());
+            tfadressFactKvartira.setText(info.getadressFactKvartira());
+
+            tfadressMailCodeCountry1.setText(info.getadressMailCodeCountry());
+            tfadressMailIndex.setText(info.getadressMailIndex());
+            tfadressMailCodeSubject.setText(info.getadressMailCodeSubject());
+            tfadressMailRayonSubject.setText(info.getadressMailRayonSubject());
+            tfadressMailCity.setText(info.getadressMailCity());
+            tfadressMailNasPunkt.setText(info.getadressMailNasPunkt());
+            tfadressMailStreet.setText(info.getadressMailStreet());
+            tfadressMailHouse.setText(info.getadressMailHouse());
+            tfadressMailKorpus.setText(info.getadressMailKorpus());
+            tfadressMailKvartira.setText(info.getadressMailKvartira());
 
             this.currentInfo = info;
 
@@ -236,6 +331,39 @@ public class FXMLDocumentController {
             taadressPostal.setText("");
             cbPdl.setSelected(false);
             tfSnils.setText("");
+
+            tfadressRegCodeCountry.setText("");
+            tfadressRegIndex.setText("");
+            tfadressRegCodeSubject.setText("");
+            tfadressRegRayonSubject.setText("");
+            tfadressRegCity.setText("");
+            tfadressRegNasPunkt.setText("");
+            tfadressRegStreet.setText("");
+            tfadressRegHouse.setText("");
+            tfadressRegKorpus.setText("");
+            tfadressRegKvartira.setText("");
+
+            tfadressFactCodeCountry.setText("");
+            tfadressFactIndex.setText("");
+            tfadressFactCodeSubject.setText("");
+            tfadressFactRayonSubject.setText("");
+            tfadressFactCity.setText("");
+            tfadressFactNasPunkt.setText("");
+            tfadressFactStreet.setText("");
+            tfadressFactHouse.setText("");
+            tfadressFactKorpus.setText("");
+            tfadressFactKvartira.setText("");
+
+            tfadressMailCodeCountry1.setText("");
+            tfadressMailIndex.setText("");
+            tfadressMailCodeSubject.setText("");
+            tfadressMailRayonSubject.setText("");
+            tfadressMailCity.setText("");
+            tfadressMailNasPunkt.setText("");
+            tfadressMailStreet.setText("");
+            tfadressMailHouse.setText("");
+            tfadressMailKorpus.setText("");
+            tfadressMailKvartira.setText("");
         }
 
     }
@@ -310,10 +438,79 @@ public class FXMLDocumentController {
 
         this.currentInfo.setsnils(tfSnils.getText());
 
+        this.currentInfo.setadressRegCodeCountry(tfadressRegCodeCountry.getText());
+        this.currentInfo.setadressRegIndex(tfadressRegIndex.getText());
+        this.currentInfo.setadressRegCodeSubject(tfadressRegCodeSubject.getText());
+        this.currentInfo.setadressRegRayonSubject(tfadressRegRayonSubject.getText());
+        this.currentInfo.setadressRegCity(tfadressRegCity.getText());
+        this.currentInfo.setadressRegNasPunkt(tfadressRegNasPunkt.getText());
+        this.currentInfo.setadressRegStreet(tfadressRegStreet.getText());
+        this.currentInfo.setadressRegHouse(tfadressRegHouse.getText());
+        this.currentInfo.setadressRegKorpus(tfadressRegKorpus.getText());
+        this.currentInfo.setadressRegKvartira(tfadressRegKvartira.getText());
+
+        this.currentInfo.setadressFactCodeCountry(tfadressFactCodeCountry.getText());
+        this.currentInfo.setadressFactIndex(tfadressFactIndex.getText());
+        this.currentInfo.setadressFactCodeSubject(tfadressFactCodeSubject.getText());
+        this.currentInfo.setadressFactRayonSubject(tfadressFactRayonSubject.getText());
+        this.currentInfo.setadressFactCity(tfadressFactCity.getText());
+        this.currentInfo.setadressFactNasPunkt(tfadressFactNasPunkt.getText());
+        this.currentInfo.setadressFactStreet(tfadressFactStreet.getText());
+        this.currentInfo.setadressFactHouse(tfadressFactHouse.getText());
+        this.currentInfo.setadressFactKorpus(tfadressFactKorpus.getText());
+        this.currentInfo.setadressFactKvartira(tfadressFactKvartira.getText());
+
+        this.currentInfo.setadressMailCodeCountry(tfadressMailCodeCountry1.getText());
+        this.currentInfo.setadressMailIndex(tfadressMailIndex.getText());
+        this.currentInfo.setadressMailCodeSubject(tfadressMailCodeSubject.getText());
+        this.currentInfo.setadressMailRayonSubject(tfadressMailRayonSubject.getText());
+        this.currentInfo.setadressMailCity(tfadressMailCity.getText());
+        this.currentInfo.setadressMailNasPunkt(tfadressMailNasPunkt.getText());
+        this.currentInfo.setadressMailStreet(tfadressMailStreet.getText());
+        this.currentInfo.setadressMailHouse(tfadressMailHouse.getText());
+        this.currentInfo.setadressMailKorpus(tfadressMailKorpus.getText());
+        this.currentInfo.setadressMailKvartira(tfadressMailKvartira.getText());
+
         // 2. save to file
         try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(this.mainApp.currentFile), "cp1251"))) {
 
-            bw.write("header\n");
+            bw.write("Табельный номер;Фамилия;Имя;Отчество;Пол клиента;Фамилия на карте;Имя на карте;Дата рождения;Место рождения;Код страны гражданства;"
+                    + "Место регистрации. Код страны адреса;"
+                    + "Место регистрации. Почтовый индекс;"
+                    + "Место регистрации. Код субъекта РФ;"
+                    + "Место регистрации. Район субъекта РФ;"
+                    + "Место регистрации. Город;"
+                    + "Место регистрации. Населенный пункт;"
+                    + "Место регистрации. Улица;"
+                    + "Место регистрации. Дом;"
+                    + "Место регистрации. Корпус;"
+                    + "Место регистрации. Квартира;"
+                    
+                    + "Код страны адреса;"
+                    + "Почтовый индекс;"
+                    + "Код субъекта РФ адреса;"
+                    + "Район субъекта РФ адреса;"
+                    + "Город;"
+                    + "Населенный пункт;"
+                    + "Улица;"
+                    + "Дом;"
+                    + "Корпус;"
+                    + "Квартира;"
+
+                    + "Телефон;"
+                    + "Мобильный телефон;"
+                    + "Код типа документа;"
+                    + "Серия документа;"
+                    + "Номер удостоверения;"
+                    + "Дата выдачи документа;"
+                    + "Кем выдан документ;"
+                    + "Резидент;"
+                    + "Документ, подтверждающий право пребывания на территории РФ;"
+                    + "Данные миграционной карты;"
+                    + "Кодовое слово;"
+                    + "Дата приема на работу;"
+                    + "СНИЛС;"
+                    + "Средний оклад сотрудника за последние 3 месяца" + System.lineSeparator());
 
             Iterator<info> iterator = infoTable.getItems().iterator();
             while (iterator.hasNext()) {
@@ -333,26 +530,26 @@ public class FXMLDocumentController {
                 sb.append(next.getdateBirth().concat(";"));
                 sb.append(next.getpBirthPlace().concat(";"));
                 sb.append(arrLine[9].concat(";"));
-                sb.append(arrLine[10].concat(";"));
-                sb.append(arrLine[11].concat(";"));
-                sb.append(arrLine[12].concat(";"));
-                sb.append(arrLine[13].concat(";"));
-                sb.append(arrLine[14].concat(";"));
-                sb.append(arrLine[15].concat(";"));
-                sb.append(arrLine[16].concat(";"));
-                sb.append(arrLine[17].concat(";"));
-                sb.append(arrLine[18].concat(";"));
-                sb.append(arrLine[19].concat(";"));
-                sb.append(arrLine[20].concat(";"));
-                sb.append(arrLine[21].concat(";"));
-                sb.append(arrLine[22].concat(";"));
-                sb.append(arrLine[23].concat(";"));
-                sb.append(arrLine[24].concat(";"));
-                sb.append(arrLine[25].concat(";"));
-                sb.append(arrLine[26].concat(";"));
-                sb.append(arrLine[27].concat(";"));
-                sb.append(arrLine[28].concat(";"));
-                sb.append(arrLine[29].concat(";"));
+                sb.append(next.getadressRegCodeCountry().concat(";"));
+                sb.append(next.getadressRegIndex().concat(";"));
+                sb.append(next.getadressRegCodeSubject().concat(";"));
+                sb.append(next.getadressRegRayonSubject().concat(";"));
+                sb.append(next.getadressRegCity().concat(";"));
+                sb.append(next.getadressRegNasPunkt().concat(";"));
+                sb.append(next.getadressRegStreet().concat(";"));
+                sb.append(next.getadressRegHouse().concat(";"));
+                sb.append(next.getadressRegKorpus().concat(";"));
+                sb.append(next.getadressRegKvartira().concat(";"));
+                sb.append(next.getadressFactCodeCountry().concat(";"));
+                sb.append(next.getadressFactIndex().concat(";"));
+                sb.append(next.getadressFactCodeSubject().concat(";"));
+                sb.append(next.getadressFactRayonSubject().concat(";"));
+                sb.append(next.getadressFactCity().concat(";"));
+                sb.append(next.getadressFactNasPunkt().concat(";"));
+                sb.append(next.getadressFactStreet().concat(";"));
+                sb.append(next.getadressFactHouse().concat(";"));
+                sb.append(next.getadressFactKorpus().concat(";"));
+                sb.append(next.getadressFactKvartira().concat(";"));
                 sb.append(arrLine[30].concat(";"));
                 sb.append(next.gettel().concat(";"));
                 sb.append(arrLine[32].concat(";"));
@@ -366,6 +563,11 @@ public class FXMLDocumentController {
                 sb.append(next.getcodeWord1().concat(";"));
                 sb.append(arrLine[41].concat(";"));
                 sb.append(next.getsnils().concat(";"));
+                sb.append(arrLine[43].concat(";"));
+                
+//                if (arrLine.length > 45) {
+//                    sb.append(next.getpdl().concat(";"));
+//                }
 
                 bw.write(sb.toString() + System.lineSeparator());
 
@@ -464,15 +666,13 @@ public class FXMLDocumentController {
                     } else {
                         badReestr.write(next.getSrcString() + System.lineSeparator());
                     }
-                    
-                    //to msword
-                    
-                    /**
-                     * Тип карты ставим Classic счет не заполняем. 
-                     * Сохраняем там же, где хороший реестр с префиксом pril5_
-                     * 
-                     */
 
+                    //to msword
+                    /**
+                     * Тип карты ставим Classic счет не заполняем. Сохраняем там
+                     * же, где хороший реестр с префиксом pril5_
+                     *
+                     */
                 }
 
                 protokol.write("===================================================================================" + System.lineSeparator());

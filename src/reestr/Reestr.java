@@ -122,6 +122,10 @@ public class Reestr extends Application {
         String pdl = null;
         String snils = null;
 
+        String adressReg1 = null, adressReg2 = null, adressReg3 = null, adressReg4 = null, adressReg5 = null, adressReg6 = null, adressReg7 = null, adressReg8 = null, adressReg9 = null, adressReg10 = null;
+        String adressFact1 = null, adressFact2 = null, adressFact3 = null, adressFact4 = null, adressFact5 = null, adressFact6 = null, adressFact7 = null, adressFact8 = null, adressFact9 = null, adressFact10 = null;
+        String adressMail1 = null, adressMail2 = null, adressMail3 = null, adressMail4 = null, adressMail5 = null, adressMail6 = null, adressMail7 = null, adressMail8 = null, adressMail9 = null, adressMail10 = null;
+
         FileChooser fileChooser = new FileChooser();
 
         fileChooser.setTitle("Open Document");
@@ -158,6 +162,17 @@ public class Reestr extends Application {
                             Code = "";
                             BirthPlace = arrLine[8] != null ? arrLine[8] : "";
 
+                            adressReg1 = arrLine[10];
+                            adressReg2 = arrLine[11];
+                            adressReg3 = arrLine[12];
+                            adressReg4 = arrLine[13];
+                            adressReg5 = arrLine[14];
+                            adressReg6 = arrLine[15];
+                            adressReg7 = arrLine[16];
+                            adressReg8 = arrLine[17];
+                            adressReg9 = arrLine[18];
+                            adressReg10 = arrLine[19];
+
                             AdressResident = arrLine[10] != null ? arrLine[10] : ",";
                             AdressResident += arrLine[11] != null ? "," + arrLine[11] : ",";
                             AdressResident += arrLine[12] != null ? "," + arrLine[12] : ",";
@@ -175,6 +190,17 @@ public class Reestr extends Application {
                             sex = arrLine[4] != null ? arrLine[4] : "";
                             dateBirth = arrLine[7] != null ? arrLine[7] : "";
 
+                            adressFact1 = arrLine[20];
+                            adressFact2 = arrLine[21];
+                            adressFact3 = arrLine[22];
+                            adressFact4 = arrLine[23];
+                            adressFact5 = arrLine[24];
+                            adressFact6 = arrLine[25];
+                            adressFact7 = arrLine[26];
+                            adressFact8 = arrLine[27];
+                            adressFact9 = arrLine[28];
+                            adressFact10 = arrLine[29];
+
                             adressFact = arrLine[20] != null ? arrLine[20] : ",";
                             adressFact += arrLine[21] != null ? "," + arrLine[21] : ",";
                             adressFact += arrLine[22] != null ? "," + arrLine[22] : ",";
@@ -185,6 +211,17 @@ public class Reestr extends Application {
                             adressFact += arrLine[27] != null ? "," + arrLine[27] : ",";
                             adressFact += arrLine[28] != null ? "," + arrLine[28] : ",";
                             adressFact += arrLine[29] != null ? "," + arrLine[29] : ",";
+
+                            adressMail1 = "";
+                            adressMail2 = "";
+                            adressMail3 = "";
+                            adressMail4 = "";
+                            adressMail5 = "";
+                            adressMail6 = "";
+                            adressMail7 = "";
+                            adressMail8 = "";
+                            adressMail9 = "";
+                            adressMail10 = "";
 
                             adressPostal = AdressResident;
 
@@ -220,6 +257,43 @@ public class Reestr extends Application {
                         info.setadressPostal(adressPostal);
                         info.setpdl(pdl);
                         info.setsnils(snils);
+
+                        // адрес прописки
+                        info.setadressRegCodeCountry(adressReg1);
+                        info.setadressRegIndex(adressReg2);
+                        info.setadressRegCodeSubject(adressReg3);
+                        info.setadressRegRayonSubject(adressReg4);
+                        info.setadressRegCity(adressReg5);
+                        info.setadressRegNasPunkt(adressReg6);
+                        info.setadressRegStreet(adressReg7);
+                        info.setadressRegHouse(adressReg8);
+                        info.setadressRegKorpus(adressReg9);
+                        info.setadressRegKvartira(adressReg10);
+
+                        // адрес факт
+                        info.setadressFactCodeCountry(adressFact1);
+                        info.setadressFactIndex(adressFact2);
+                        info.setadressFactCodeSubject(adressFact3);
+                        info.setadressFactRayonSubject(adressFact4);
+                        info.setadressFactCity(adressFact5);
+                        info.setadressFactNasPunkt(adressFact6);
+                        info.setadressFactStreet(adressFact7);
+                        info.setadressFactHouse(adressFact8);
+                        info.setadressFactKorpus(adressFact9);
+                        info.setadressFactKvartira(adressFact10);
+                        
+                        // почтовый адрес
+                        info.setadressMailCodeCountry(adressMail1);
+                        info.setadressMailIndex(adressMail2);
+                        info.setadressMailCodeSubject(adressMail3);
+                        info.setadressMailRayonSubject(adressMail4);
+                        info.setadressMailCity(adressMail5);
+                        info.setadressMailNasPunkt(adressMail6);
+                        info.setadressMailStreet(adressMail7);
+                        info.setadressMailHouse(adressMail8);
+                        info.setadressMailKorpus(adressMail9);
+                        info.setadressMailKvartira(adressMail10);
+
                         info.setSrcString(strLine);
 
                         infoData.add(info);
