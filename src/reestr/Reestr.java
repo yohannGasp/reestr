@@ -40,7 +40,7 @@ public class Reestr extends Application {
 
     private serviceDAO serviceDAO;
     private DB db;
-    private static final String connectionString = "YR3oJGx4TwrKhHuMuamMHmmfORDLsJ2fa7eL7Xx/wJv1DQV2cf8DuVPDvf6QB178";
+    private static final String connectionString = "YR3oJGx4TwrKhHuMuamMHliQNVxyevOuNz6+VgNbkpJ2PoCSdgEUjgjUthgkOfDl";
     private static final String userCft = "rWwm5KsgumCmyBzLBsdBTw==";
     private static final String passwordCft = "XpXUcBBYASd/kzwvM1b/eA==";
 
@@ -90,7 +90,7 @@ public class Reestr extends Application {
         controller.setMainApp(this);
 
         rootController.setFXMLDocumentController(controller);
-
+        
         db = new DB(getStr(connectionString), getStr(userCft), getStr(passwordCft));
         serviceDAO = new serviceDAO(db);
 

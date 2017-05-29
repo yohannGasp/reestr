@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package reestr.view;
 
 import java.io.BufferedWriter;
@@ -12,7 +7,11 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -29,6 +28,7 @@ import javafx.scene.control.TextField;
 import reestr.Reestr;
 import reestr.model.info;
 import util.DateUtil;
+import util.ToMsWord;
 
 /**
  *
@@ -719,6 +719,21 @@ public class FXMLDocumentController {
      */
     public void ldInfofromfile() {
         this.loadInfoFromFile();
+    }
+    
+    @FXML
+    private void toMsWord(){
+        ToMsWord toMsWord = new ToMsWord();
+
+        toMsWord.setNamefile(System.getProperty("file.separator") + "tmp" + System.getProperty("file.separator") + "Report_.docx");
+        
+        List<?> param = new ArrayList<>();
+        
+        Map<String, String> par = new HashMap<>();
+        
+        toMsWord.process(param, par);
+        System.out.println("ok");
+        
     }
 
 }
